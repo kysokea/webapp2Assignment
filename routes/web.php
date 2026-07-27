@@ -14,7 +14,7 @@ Route::middleware('auth')->group(function () {
     });
     Route::get('/', function () {
         return view('dashboard.dashboard');
-    });
+    })->name('dashboard');
     Route::prefix('user')->group(function () {
         Route::get('/', function () {
             return view('users.index');
