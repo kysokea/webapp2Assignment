@@ -19,16 +19,16 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('user')->controller(UserController::class)->group(function () {
         Route::get('/', 'index')->name('user.index');
-        // Route::get('/edit/{id}', 'edit')->name('user.edit');
-        // Route::post('/update/{id}', 'userUpdate')->name('user.update');
+        Route::get('/edit/{id}', 'edit')->name('user.edit');
+        Route::post('/update/{id}', 'userUpdate')->name('user.update');
     });
 
     Route::prefix('/customer')->controller(CustomerController::class)->group(function () {
         Route::get('/', 'index')->name('customer.index');
         Route::get('/create', 'create')->name('customer.create');
         Route::post('/create', 'createCustomer');
-        Route::get('/edit/{id}','update')->name('customers.edit');
-        Route::post('/update/{id}','updateCustomer');
+        // Route::get('/edit/{id}','update')->name('customers.edit');
+        // Route::post('/update/{id}','updateCustomer');
     });
 
     Route::prefix('/product')->controller(ProductController::class)->group(function () {
