@@ -3,9 +3,40 @@
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('layouts.index');
-})->middleware('auth')->name('dashboard');
+// Route::get('/', function () {
+//     return view('layouts.index');
+// })->middleware('auth')->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/', function () {
+        return view('layouts.admin');
+    });
+    Route::get('/', function () {
+        return view('dashboard.dashboard');
+    });
+    Route::prefix('user')->group(function () {
+        Route::get('/', function () {
+            return view('users.index');
+        });
+    });
+    Route::prefix('/customer')->group(function () {
+        Route::get('/', function () {
+            return view('customers.index');
+        })->name('customer.index');
+    });
+    Route::prefix('/product')->group(function () {
+        Route::get('/', function () {
+            return view('products.index');
+        })->name('products.index');
+    });
+    Route::prefix('/sale')->group(function () {
+        Route::get('/', function () {
+            return view('sales.index');
+        })->name('sales.index');
+    });
+
+});
 
 
 Route::prefix('auth')->controller(AuthController::class)->group(function () {

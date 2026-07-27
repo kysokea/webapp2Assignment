@@ -11,6 +11,23 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
+        @include('partials.navbar')
+
+        @include('partials.sidebar')
+
+        <div class="content-wrapper">
+
+            <section class="content pt-3">
+
+                @yield('content')
+
+            </section>
+
+        </div>
+
+        @include('partials.footer')
+    </div>
+    {{-- <div class="wrapper">
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
@@ -225,7 +242,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('/user') }}" class="nav-link active">
+                                    <a href="./index.html" class="nav-link active">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>User</p>
                                     </a>
@@ -1520,7 +1537,7 @@
             <!-- Control sidebar content goes here -->
         </aside>
         <!-- /.control-sidebar -->
-    </div>
+    </div> --}}
 </body>
 
 </html>
