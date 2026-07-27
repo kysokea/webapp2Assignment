@@ -22,11 +22,15 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
+    protected $primaryKey = 'user_id';
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function gender(){
+        return $this->belongsTo(Gender::class,'gender_id');
     }
 }
