@@ -1538,6 +1538,7 @@
         </aside>
         <!-- /.control-sidebar -->
     </div> --}}
+    @yield('scripts')
 </body>
 
 </html>

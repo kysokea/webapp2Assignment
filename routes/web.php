@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('auth')->group(function () {
-
     Route::get('/', function () {
         return view('layouts.admin');
     });
@@ -17,19 +16,18 @@ Route::middleware('auth')->group(function () {
         return view('dashboard.dashboard');
     })->name('dashboard');
     Route::prefix('user')->controller(UserController::class)->group(function () {
-        // Route::get('/', function () {
-        //     return view('users.index');
-        // });
-        Route::get('/','index')->name('user.index');
+        Route::get('/'              , 'index')->name('user.index');
+        Route::get('/edit/{id}'     , 'edit')->name('user.edit');
+        Route::post('/update/{id}'  , 'userUpdate')->name('user.update');
     });
     Route::prefix('/customer')->controller(CustomerController::class)->group(function () {
-        Route::get('/', 'index')->name('customer.index');
+        Route::get('/'      , 'index')->name('customer.index');
     });
     Route::prefix('/product')->controller(ProductController::class)->group(function () {
-        Route::get('/', 'index')->name('products.index');
+        Route::get('/'      , 'index')->name('products.index');
     });
     Route::prefix('/sale')->group(function () {
-        Route::get('/', function () {
+        Route::get('/'      , function () {
             return view('sales.index');
         })->name('sales.index');
     });

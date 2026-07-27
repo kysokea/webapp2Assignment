@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'email','phone', 'password', 'gender_id', 'role', 'avatar', 'disable'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -30,7 +30,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function gender(){
-        return $this->belongsTo(Gender::class,'gender_id');
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class, 'gender_id');
     }
 }

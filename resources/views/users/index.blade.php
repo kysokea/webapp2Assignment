@@ -8,10 +8,10 @@
             </div>
 
             <div class="card-tools">
-                <a href="#" class="btn btn-primary btn-sm">
+                {{-- <a href="#" class="btn btn-primary btn-sm">
                     <i class="fas fa-plus"></i>
                     Add User
-                </a>
+                </a> --}}
             </div>
         </div>
 
@@ -31,54 +31,42 @@
                     </thead>
 
                     <tbody>
-                        <tr class="text-center align-middle">
-                            <td>
-                                <img src="https://placehold.co/50x50" class="rounded-circle" width="50" height="50"
-                                    alt="Avatar">
-                            </td>
-                            <td class="text-center align-middle">John Doe</td>
-                            <td class="text-center align-middle">john@example.com</td>
-                            <td class="text-center align-middle">012345678</td>
-                            <td class="text-center align-middle">
-                                <span class="badge bg-primary">Admin</span>
-                            </td>
-                            <td class="text-center align-middle">
-                                <span class="badge bg-success">Active</span>
-                            </td>
-                            <td class="text-center align-middle">
-                                <button class="btn btn-warning btn-sm">
-                                    <i class="fas fa-edit"></i>
-                                </button>
+                        @foreach ($users as $user)
+                            <tr class="text-center align-middle">
+                                <td>
 
-                                <button class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="text-center align-middle">
-                            <td>
-                                <img src="https://placehold.co/50x50" class="rounded-circle" width="50" height="50"
-                                    alt="Avatar">
-                            </td>
-                            <td class="text-center align-middle">John Doe</td>
-                            <td class="text-center align-middle">john@example.com</td>
-                            <td class="text-center align-middle">012345678</td>
-                            <td class="text-center align-middle">
-                                <span class="badge bg-primary">Admin</span>
-                            </td>
-                            <td class="text-center align-middle">
-                                <span class="badge bg-success">Active</span>
-                            </td>
-                            <td class="text-center align-middle">
-                                <button class="btn btn-warning btn-sm">
-                                    <i class="fas fa-edit"></i>
-                                </button>
+                                    @if ($user->avatar)
+                                        <img src="{{ asset('/storage/img/' . $user->avatar) }}" width="50"
+                                            height="50" class="rounded-circle object-fit-cover">
+                                    @else
+                                        No Image
+                                    @endif
+                                </td>
+                                <td class="text-center align-middle">{{ $user->name }}</td>
+                                <td class="text-center align-middle">{{ $user->email }}</td>
+                                <td class="text-center align-middle">{{ $user->phone }}</td>
+                                <td class="text-center align-middle">
+                                    <span class="badge bg-primary">{{ $user->role }}</span>
+                                </td>
+                                <td class="text-center align-middle">
+                                    @if ($user->disable)
+                                        <span class="badge bg-danger">Disabled</span>
+                                    @else
+                                        <span class="badge bg-success">Active</span>
+                                    @endif
+                                </td>
 
-                                <button class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
+                                <td class="text-center align-middle">
+                                    <a href="{{ route('user.edit', $user->user_id) }}" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+
+                                    {{-- <a href="#" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </a> --}}
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
