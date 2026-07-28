@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -30,6 +31,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id}', 'update')->name('customers.edit');
         Route::post('/update/{id}', 'updateCustomer')->name('customer.update');
         Route::delete('/delete/{id}', 'drop')->name('customer.drop');
+    });
+
+    Route::prefix('/category')->controller(CategoryController::class)->group(function () {
+        Route::get('/', 'index')->name('category.index');
+        Route::get('/create', 'create')->name('category.create');
+        Route::post('/create', 'createCategory')->name('category.created');
+        Route::get('/edit/{id}', 'edit')->name('category.edit');
+        Route::post('/edit/{id}', 'updateCategory')->name('category.update');
     });
 
     Route::prefix('/product')->controller(ProductController::class)->group(function () {
