@@ -27,8 +27,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/', 'index')->name('customer.index');
         Route::get('/create', 'create')->name('customer.create');
         Route::post('/create', 'createCustomer');
-        // Route::get('/edit/{id}','update')->name('customers.edit');
-        // Route::post('/update/{id}','updateCustomer');
+        Route::get('/edit/{id}', 'update')->name('customers.edit');
+        Route::post('/update/{id}', 'updateCustomer')->name('customer.update');
+        Route::delete('/delete/{id}', 'drop')->name('customer.drop');
     });
 
     Route::prefix('/product')->controller(ProductController::class)->group(function () {
@@ -45,7 +46,6 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('auth')->controller(AuthController::class)->group(function () {
 
-    // Only guests (not logged in) can access these routes
     Route::middleware('guest')->group(function () {
         Route::get('/login', 'login')->name('login');
         Route::post('/login', 'loginPage');
@@ -54,7 +54,6 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
         Route::post('/register', 'registerUser');
     });
 
-    // Only authenticated users can logout
     Route::post('/logout', 'logout')
         ->middleware('auth')
         ->name('logout');

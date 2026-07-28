@@ -1,4 +1,4 @@
-{{-- @extends('layouts.admin')
+@extends('layouts.admin')
 
 @section('content')
     <div class="container">
@@ -8,7 +8,7 @@
                 <h3>Update Customer Type</h3>
             </div>
             <div class="card-body">
-                <form action="{{ route('customer.edit') }}" method="POST">
+                <form action="{{ route('customer.update', $customer->customer_id) }}" method="POST">
                     @csrf
 
                     <div class="mb-3">
@@ -50,11 +50,8 @@
                             Save
                         </button>
                     </div>
-
                 </form>
-
             </div>
         </div>
-
     </div>
-@endsection --}}
+@endsection

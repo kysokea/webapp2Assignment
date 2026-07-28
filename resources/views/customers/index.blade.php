@@ -31,12 +31,20 @@
                                 <td class="text-center align-middle">{{ $customer->customer_type_kh }}</td>
                                 <td class="text-center align-middle">{{ $customer->customer_type_en }}</td>
                                 <td class="text-center align-middle">
-                                    <a href="#" class="btn btn-warning btn-sm">
+                                    <a href="{{ route('customers.edit', $customer->customer_id) }}"
+                                        class="btn btn-warning btn-sm">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <a href="#" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
+                                    <form action="{{ route('customer.drop', $customer->customer_id) }}" method="POST"
+                                        class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="submit" class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete this customer type?')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

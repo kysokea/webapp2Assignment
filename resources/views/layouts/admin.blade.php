@@ -27,6 +27,7 @@
 
         @include('partials.footer')
     </div>
+    
     {{-- <div class="wrapper">
 
         <!-- Preloader -->
