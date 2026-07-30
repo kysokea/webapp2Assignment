@@ -12,4 +12,8 @@ class Category extends Model
         'category_title_en',
         'disable'
     ];
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id', 'category_id');
+    }
 }

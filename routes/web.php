@@ -43,6 +43,10 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('/product')->controller(ProductController::class)->group(function () {
         Route::get('/', 'index')->name('products.index');
+        Route::get('/create', 'create')->name('product.create');
+        Route::post('/create', 'createProduct')->name('product.created');
+        Route::get('/edit/{id}', 'edit')->name('product.edit');
+        Route::post('/edit/{id}','updateProduct')->name('product.update');
     });
 
     Route::prefix('/sale')->group(function () {

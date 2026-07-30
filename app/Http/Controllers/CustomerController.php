@@ -9,7 +9,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = Customer::all();
+        $customers = Customer::orderBy('customer_id', 'asc')->paginate(5);
         return view('customers.index', compact('customers'));
     }
     public function create()
@@ -32,9 +32,10 @@ class CustomerController extends Controller
             ->route('customer.index')
             ->with('success', 'Customer type created successfully.');
     }
-    public function update($id){
+    public function update($id)
+    {
         $customer = Customer::findOrFail($id);
-        return view('customers.edit',compact('customer'));
+        return view('customers.edit', compact('customer'));
     }
     public function updateCustomer(Request $request, $id)
     {

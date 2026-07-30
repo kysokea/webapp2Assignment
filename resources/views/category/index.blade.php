@@ -66,9 +66,9 @@
                     </tbody>
                 </table>
                 <!-- Pagination -->
-                <div class="d-flex justify-content-end">
-                    {{ $categories->links() }}
-                </div>
+                {{-- <div class="d-flex justify-content-end"> --}}
+                    {{ $categories->links('pagination::bootstrap-5') }}
+                {{-- </div> --}}
             </div>
         </div>
     </div>
