@@ -29,405 +29,28 @@
 
         <div class="row">
 
-            {{-- ===================================================== --}}
-            {{-- LEFT : PRODUCT SECTION --}}
-            {{-- ===================================================== --}}
+
+            {{-- LEFT SIDE --}}
             <div class="col-xl-8 col-lg-7">
 
-                <div class="sale-panel">
-
-                    {{-- Search --}}
-                    <div class="sale-toolbar">
-
-                        <div class="search-box">
-
-                            <i class="fas fa-search"></i>
-
-                            <input type="text" placeholder="Search product...">
-
-                            <span class="shortcut">
-                                /
-                            </span>
-
-                        </div>
-
-                        <button class="filter-btn">
-                            <i class="fas fa-filter mr-2"></i>
-                            Filter
-                        </button>
-
-                    </div>
-
-
-                    {{-- Categories --}}
-                    <div class="category-list">
-
-                        <button class="category active">
-                            <i class="fas fa-th-large"></i>
-                            All
-                        </button>
-
-                        <button class="category">
-                            <i class="fas fa-mobile-alt"></i>
-                            Electronics
-                        </button>
-
-                        <button class="category">
-                            <i class="fas fa-coffee"></i>
-                            Drinks
-                        </button>
-
-                        <button class="category">
-                            <i class="fas fa-utensils"></i>
-                            Food
-                        </button>
-
-                        <button class="category">
-                            <i class="fas fa-box"></i>
-                            Others
-                        </button>
-
-                    </div>
-
-
-                    {{-- Product Header --}}
-                    <div class="product-heading">
-
-                        <div>
-                            <h5>Products</h5>
-                            <small>24 products available</small>
-                        </div>
-
-                        <select class="sort-select">
-                            <option>Popular</option>
-                            <option>Price: Low to High</option>
-                            <option>Price: High to Low</option>
-                            <option>Newest</option>
-                        </select>
-
-                    </div>
-
-
-                    {{-- ================= PRODUCTS ================= --}}
-                    <div class="row p-3">
-                        @forelse ($productCards as $product)
-
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-6 mb-4">
-
-                                <a {{-- href="{{ route('sales.add', $product->product_id) }}" --}}
-                                    href="{{ route('action.selectedProduct', $product->product_id) }}"
-                                    class="product-card d-block text-decoration-none">
-
-                                    {{-- Product Image --}}
-                                    <div class="product-image">
-
-                                        @if ($product->avatar)
-                                            <img src="{{ asset('storage/img/' . $product->avatar) }}"
-                                                alt="{{ $product->product_name_en }}">
-                                        @else
-                                            <img src="{{ asset('storage/img/empty-img.png') }}" alt="No Image">
-                                        @endif
-
-                                        {{-- Status --}}
-                                        <span class="stock">
-                                            Available
-                                        </span>
-
-                                    </div>
-
-
-                                    {{-- Product Content --}}
-                                    <div class="product-content">
-
-                                        {{-- Product Name --}}
-                                        <h6 class="font-weight-light text-dark">
-                                            {{ $product->product_name_en }}
-                                        </h6>
-
-
-                                        <div class="product-bottom">
-
-                                            <strong class="text-primary">
-                                                ${{ number_format($product->price, 2) }}
-                                            </strong>
-
-                                            <span class="add-product d-flex align-items-center justify-content-center">
-                                                <i class="fas fa-plus"></i>
-                                            </span>
-
-                                        </div>
-
-                                    </div>
-
-                                </a>
-
-                            </div>
-
-                        @empty
-
-                            <div class="col-12">
-
-                                <div class="text-center py-5">
-
-                                    <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
-
-                                    <h6 class="font-weight-bold text-muted">
-                                        No Products Found
-                                    </h6>
-
-                                    <small class="text-muted">
-                                        Start by adding your first product.
-                                    </small>
-
-                                </div>
-
-                            </div>
-
-                        @endforelse
-
-                    </div>
-
-
-                    {{-- Pagination --}}
-                    @if ($productCards->hasPages())
-
-                        <div class="d-flex justify-content-end mr-4">
-
-                            {{ $productCards->onEachSide(1)->links('pagination::bootstrap-5') }}
-
-                        </div>
-
-                    @endif
-
-                </div>
+                @include('action.components.product-list', [
+                    'productCards' => $productCards
+                ])
 
             </div>
 
 
-            {{-- ===================================================== --}}
-            {{-- RIGHT : CHECKOUT --}}
-            {{-- ===================================================== --}}
+
+
+            {{-- RIGHT SIDE --}}
             <div class="col-xl-4 col-lg-5">
 
-                <div class="checkout-card">
-
-                    {{-- Checkout Header --}}
-                    <div class="checkout-header">
-
-                        <div>
-                            <h5>
-                                <i class="fas fa-shopping-bag text-primary mr-2"></i>
-                                Current Sale
-                            </h5>
-
-                            <small>
-                                3 items selected
-                            </small>
-                        </div>
-
-                        <button class="clear-btn">
-                            Clear
-                        </button>
-
-                    </div>
-
-
-
-
-
-                    {{-- Cart Items --}}
-                    <div class="cart-list">
-
-
-                        {{-- Cart Item --}}
-                        <a href="" class="cart-product">
-
-                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200">
-
-                            <div class="cart-product-info">
-
-                                <strong>
-                                    Nike Air Max
-                                </strong>
-
-                                <small>
-                                    $89.00 / item
-                                </small>
-
-                                <div class="quantity">
-
-                                    <button>
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-
-                                    <span>1</span>
-
-                                    <button>
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-
-                                </div>
-
-                            </div>
-
-                            <div class="cart-price">
-
-                                <strong>
-                                    $89.00
-                                </strong>
-
-                                <button>
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-
-                            </div>
-
-                        </a>
-
-
-
-                        {{-- Cart Item --}}
-                        {{-- <div class="cart-product">
-
-                            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200">
-
-                            <div class="cart-product-info">
-
-                                <strong>
-                                    Classic Watch
-                                </strong>
-
-                                <small>
-                                    $120.00 / item
-                                </small>
-
-                                <div class="quantity">
-
-                                    <button>
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-
-                                    <span>2</span>
-
-                                    <button>
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-
-                                </div>
-
-                            </div>
-
-                            <div class="cart-price">
-
-                                <strong>
-                                    $240.00
-                                </strong>
-
-                                <button>
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-
-                            </div>
-
-                        </div> --}}
-
-
-                    </div>
-
-
-                    {{-- Summary --}}
-                    <div class="summary">
-
-                        <div>
-                            <span>Subtotal</span>
-                            <strong>$329.00</strong>
-                        </div>
-
-                        <div>
-                            <span>Discount</span>
-
-                            <div class="discount">
-                                <input type="text" value="0">
-                                <span>$</span>
-                            </div>
-                        </div>
-
-                        <div>
-                            <span>Tax</span>
-                            <strong>$32.90</strong>
-                        </div>
-
-                    </div>
-
-
-                    {{-- Total --}}
-                    <div class="grand-total">
-
-                        <span>Total</span>
-
-                        <strong>
-                            $361.90
-                        </strong>
-
-                    </div>
-
-
-                    {{-- Payment --}}
-                    <div class="payment-section">
-
-                        <label>
-                            Payment Method
-                        </label>
-
-                        <div class="payment-buttons">
-
-                            <button class="payment active">
-
-                                <i class="fas fa-money-bill-wave"></i>
-
-                                <span>Cash</span>
-
-                            </button>
-
-                            <button class="payment">
-
-                                <i class="fas fa-credit-card"></i>
-
-                                <span>Card</span>
-
-                            </button>
-
-                            <button class="payment">
-
-                                <i class="fas fa-qrcode"></i>
-
-                                <span>QR Pay</span>
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- Checkout --}}
-                    <button class="checkout-btn">
-
-                        <span>
-                            Complete Sale
-                        </span>
-
-                        <strong>
-                            $361.90
-                        </strong>
-
-                        <i class="fas fa-arrow-right"></i>
-
-                    </button>
-
-                </div>
+                @include('action.components.sale-cart', [
+                    'cartProducts' => $cartProducts ?? []
+                ])
 
             </div>
+
 
         </div>
 
@@ -436,8 +59,8 @@
 
     <style>
         /* =========================================================
-               GLOBAL
-            ========================================================= */
+                           GLOBAL
+                        ========================================================= */
 
         .sale-panel,
         .checkout-card {
@@ -449,8 +72,8 @@
 
 
         /* =========================================================
-               HEADER
-            ========================================================= */
+                           HEADER
+                        ========================================================= */
 
         .sale-number {
             background: #f0f6ff;
@@ -463,8 +86,8 @@
 
 
         /* =========================================================
-               TOOLBAR
-            ========================================================= */
+                           TOOLBAR
+                        ========================================================= */
 
         .sale-toolbar {
             padding: 20px;
@@ -513,8 +136,8 @@
 
 
         /* =========================================================
-               CATEGORY
-            ========================================================= */
+                           CATEGORY
+                        ========================================================= */
 
         .category-list {
             display: flex;
@@ -544,8 +167,8 @@
 
 
         /* =========================================================
-               PRODUCT HEADER
-            ========================================================= */
+                           PRODUCT HEADER
+                        ========================================================= */
 
         .product-heading {
             display: flex;
@@ -572,8 +195,8 @@
 
 
         /* =========================================================
-               PRODUCT CARD
-            ========================================================= */
+                           PRODUCT CARD
+                        ========================================================= */
 
         .product-card {
             border: 1px solid #edf0f5;
@@ -691,8 +314,8 @@
 
 
         /* =========================================================
-               CHECKOUT
-            ========================================================= */
+                           CHECKOUT
+                        ========================================================= */
 
         .checkout-card {
             overflow: hidden;
@@ -727,8 +350,8 @@
 
 
         /* =========================================================
-               CUSTOMER
-            ========================================================= */
+                           CUSTOMER
+                        ========================================================= */
 
         .customer-box {
             margin: 15px 20px;
@@ -772,8 +395,8 @@
 
 
         /* =========================================================
-               CART
-            ========================================================= */
+                           CART
+                        ========================================================= */
 
         .cart-list {
             padding: 0 20px;
@@ -859,8 +482,8 @@
 
 
         /* =========================================================
-               SUMMARY
-            ========================================================= */
+                           SUMMARY
+                        ========================================================= */
 
         .summary {
             padding: 18px 20px 10px;
@@ -901,8 +524,8 @@
 
 
         /* =========================================================
-               TOTAL
-            ========================================================= */
+                           TOTAL
+                        ========================================================= */
 
         .grand-total {
             margin: 5px 20px 18px;
@@ -926,8 +549,8 @@
 
 
         /* =========================================================
-               PAYMENT
-            ========================================================= */
+                           PAYMENT
+                        ========================================================= */
 
         .payment-section {
             padding: 0 20px 18px;
@@ -971,8 +594,8 @@
 
 
         /* =========================================================
-               CHECKOUT BUTTON
-            ========================================================= */
+                           CHECKOUT BUTTON
+                        ========================================================= */
 
         .checkout-btn {
             width: calc(100% - 40px);
@@ -1009,8 +632,8 @@
 
 
         /* =========================================================
-               RESPONSIVE
-            ========================================================= */
+                           RESPONSIVE
+                        ========================================================= */
 
         @media(max-width: 991px) {
 
