@@ -59,6 +59,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/action')->controller(CardProductController::class)->group(function () {
         Route::get('/', 'index')->name('actions.index');
         Route::get('productCard', 'productCard')->name('actions.productCard');
+        Route::get('/productSelection/{id}','selectedProduct')->name('action.selectedProduct');
+        Route::get('/getCard/{id}','getCard')->name('action.getCard');
     });
 });
 
