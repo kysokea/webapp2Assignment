@@ -63,17 +63,17 @@
 
                         <thead class="bg-light">
 
-                            <tr class="text-muted">
+                            <tr class="text-muted ">
 
-                                <th class="text-center" width="70">
+                                <th class="text-center " width="70">
                                     #
                                 </th>
 
-                                <th>
+                                <th class="text-center">
                                     Customer Type Khmer
                                 </th>
 
-                                <th>
+                                <th class="text-center">
                                     Customer Type English
                                 </th>
 
@@ -93,7 +93,7 @@
                                 <tr>
 
                                     {{-- Number --}}
-                                    <td class="text-center text-muted">
+                                    <td class="text-center text-muted align-middle">
                                         {{ $customers->firstItem() + $key }}
                                     </td>
 
@@ -101,7 +101,7 @@
                                     {{-- Khmer --}}
                                     <td>
 
-                                        <div class="d-flex align-items-center">
+                                        <div class="d-flex align-items-center justify-content-center">
 
                                             <div class="bg-primary text-white rounded-circle
                                                         d-flex align-items-center justify-content-center mr-3"
@@ -113,7 +113,7 @@
 
                                             <div>
 
-                                                <div class="font-weight-bold text-dark">
+                                                <div class="font-weight-bold text-dark text-center">
                                                     {{ $customer->customer_type_kh }}
                                                 </div>
 
@@ -129,21 +129,22 @@
 
 
                                     {{-- English --}}
-                                    <td>
+                                    <td class="d-flex justify-content-center flex-column align-items-center">
+                                        <div>
+                                            <div class="font-weight-bold text-dark ">
+                                                {{ $customer->customer_type_en }}
+                                            </div>
 
-                                        <div class="font-weight-bold text-dark">
-                                            {{ $customer->customer_type_en }}
+                                            <small class="text-muted ">
+                                                English
+                                            </small>
                                         </div>
-
-                                        <small class="text-muted">
-                                            English
-                                        </small>
 
                                     </td>
 
 
                                     {{-- Actions --}}
-                                    <td class="text-center">
+                                    <td class="text-center align-middle">
 
                                         {{-- Edit --}}
                                         <a href="{{ route('customers.edit', $customer->customer_id) }}"

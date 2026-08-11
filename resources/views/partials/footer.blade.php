@@ -1,7 +1,6 @@
         <footer class="main-footer">
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-            All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.2.0
+            <strong class=" font-weight-bold">National Polytechnic Institute of Cambodia &copy; 2025-2026
+            <div class="float-right d-none d-sm-inline-block font-weight-light ">
+                <b>NPIC</b> BCS-3rd Year 2nd Semester
             </div>
         </footer>

@@ -8,7 +8,7 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
 
             <div>
-                <h4 class="font-weight-bold mb-1">
+                <h4 class="font-weight-bold mb-1 ">
                     <i class="fas fa-tags text-primary mr-2"></i>
                     Categories
                 </h4>
@@ -145,7 +145,7 @@
 
 
                                     {{-- Status --}}
-                                    <td class="text-center">
+                                    <td class="text-center align-middle">
 
                                         @if ($category->disable == 1)
 
@@ -167,7 +167,7 @@
 
 
                                     {{-- Action --}}
-                                    <td class="text-center">
+                                    <td class="text-center align-middle">
 
                                         <a href="{{ route('category.edit', $category->category_id) }}"
                                             class="btn btn-outline-warning btn-sm" title="Edit Category">

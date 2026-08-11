@@ -105,13 +105,13 @@
                                 <tr>
 
                                     {{-- Number --}}
-                                    <td class="text-center text-muted">
+                                    <td class="text-center align-middle text-muted">
                                         {{ $products->firstItem() + $index }}
                                     </td>
 
 
                                     {{-- Image --}}
-                                    <td class="text-center">
+                                    <td class="text-center align-middle">
 
                                         @if ($product->avatar)
 
@@ -122,7 +122,7 @@
                                         @else
 
                                             <div class="d-inline-flex align-items-center justify-content-center
-                                                                bg-light border rounded-circle text-muted"
+                                                                            bg-light border rounded-circle text-muted"
                                                 style="width:52px;height:52px;">
 
                                                 <i class="fas fa-image"></i>
@@ -135,7 +135,7 @@
 
 
                                     {{-- Khmer Name --}}
-                                    <td>
+                                    <td class="align-middle">
 
                                         <div class="font-weight-bold text-dark">
                                             {{ $product->product_name_kh }}
@@ -145,7 +145,7 @@
 
 
                                     {{-- English Name --}}
-                                    <td>
+                                    <td class="align-middle">
 
                                         <div class="font-weight-bold text-dark">
                                             {{ $product->product_name_en }}
@@ -155,7 +155,7 @@
 
 
                                     {{-- Price --}}
-                                    <td class="text-center">
+                                    <td class="text-center align-middle">
 
                                         <span class="badge badge-light border px-3 py-2">
                                             <i class="fas fa-dollar-sign text-success mr-1"></i>
@@ -168,7 +168,7 @@
 
 
                                     {{-- Status --}}
-                                    <td class="text-center">
+                                    <td class="text-center align-middle">
 
                                         @if ($product->disable)
 
@@ -190,7 +190,7 @@
 
 
                                     {{-- Action --}}
-                                    <td class="text-center">
+                                    <td class="text-center align-middle">
 
                                         <a href="{{ route('product.edit', $product->product_id) }}"
                                             class="btn btn-outline-warning btn-sm" title="Edit Product">

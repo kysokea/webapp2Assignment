@@ -7,12 +7,25 @@
     <title>AdminLTE 3 | Dashboard</title>
 
 
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Battambang:wght@100;300;400;700;900&family=Lexend:wght@100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&family=Lexend:wght@300;400;500;600;700&display=swap');
         /* ==============================
    Sidebar Menu Transition
 ================================ */
+.khmer-text {
+    font-family: 'Kantumruy Pro', sans-serif;
+    color: gray;
+}
+.english-text {
+    font-family: 'Lexend', sans-serif;
+    color: gray;
+}
+.english-text2 {
+    font-family: 'san', sans-serif;
+    color: gray;
+}
 
         .main-sidebar .nav-link {
             transition:
@@ -81,7 +94,7 @@
     </style>
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed khmer-text">
     <div class="wrapper">
         @include('partials.navbar')
 
