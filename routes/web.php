@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CardProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
@@ -53,6 +54,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/', function () {
             return view('sales.index');
         })->name('sales.index');
+    });
+
+    Route::prefix('/action')->controller(CardProductController::class)->group(function () {
+        Route::get('/', 'index')->name('actions.index');
+        Route::get('productCard', 'productCard')->name('actions.productCard');
     });
 });
 

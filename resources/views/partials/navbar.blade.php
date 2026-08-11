@@ -8,9 +8,7 @@
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ route('dashboard') }}" class="nav-link">Home</a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
-                </li>
+
 
             </ul>
 
@@ -50,7 +48,7 @@
                         @csrf
 
                         <button type="button" class="nav-link btn btn-link p-0 border-0" onclick="confirmLogout()">
-                            <i class="fas fa-sign-out-alt"></i>
+                            <i class="fa-solid fa-share-from-square mr-4" style="color: rgb(221, 34, 34);"></i>
                         </button>
                     </form>
                 </li>
