@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/create', 'create')->name('product.create');
         Route::post('/create', 'createProduct')->name('product.created');
         Route::get('/edit/{id}', 'edit')->name('product.edit');
-        Route::post('/edit/{id}','updateProduct')->name('product.update');
+        Route::post('/edit/{id}', 'updateProduct')->name('product.update');
     });
 
     Route::prefix('/sale')->group(function () {
@@ -56,12 +56,34 @@ Route::middleware('auth')->group(function () {
         })->name('sales.index');
     });
 
-    Route::prefix('/action')->controller(CardProductController::class)->group(function () {
-        Route::get('/', 'index')->name('actions.index');
-        Route::get('productCard', 'productCard')->name('actions.productCard');
-        Route::get('/productSelection/{id}','selectedProduct')->name('action.selectedProduct');
-        Route::get('/getCard/{id}','getCard')->name('action.getCard');
-    });
+    // Route::prefix('/action')->controller(CardProductController::class)->group(function () {
+    //     Route::get('/', 'index')->name('actions.index');
+    //     Route::get('productCard', 'productCard')->name('actions.productCard');
+    //     Route::get('/productSelection/{id}','selectedProduct')->name('action.selectedProduct');
+    //     Route::get('/getCard/{id}','getCard')->name('action.getCard');
+    //     // Route::get('/cart/clear', 'clearCart')
+    //     //     ->name('action.clearCart');
+    // });
+    Route::prefix('/action')
+        ->controller(CardProductController::class)
+        ->group(function () {
+
+            Route::get('/', 'index')
+                ->name('actions.index');
+
+            Route::get('/productCard', 'productCard')
+                ->name('actions.productCard');
+
+            Route::get('/productSelection/{id}', 'selectedProduct')
+                ->name('action.selectedProduct');
+
+            Route::get('/cart/clear', 'clearCart')
+                ->name('action.clearCart');
+            Route::get('/cart/remove/{id}', 'removeFromCart')
+                ->name('action.cart.remove');
+            Route::post('/cart/update/{id}', 'updateQuantity')
+                ->name('action.cart.update');
+        });
 });
 
 
