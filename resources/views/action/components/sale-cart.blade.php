@@ -2,9 +2,22 @@
 CHECKOUT / CART
 ========================================= --}}
 
+@php
+$subtotal = collect($cart)->sum(function ($item) {
+    return $item['price'] * $item['quantity'];
+});
+
+$discount = 0;
+$total = $subtotal - $discount;
+@endphp
+
+
 <div class="checkout-card">
 
-    {{-- Checkout Header --}}
+    {{-- =========================================
+    HEADER
+    ========================================== --}}
+
     <div class="checkout-header">
 
         <div>
@@ -21,7 +34,6 @@ CHECKOUT / CART
             </small>
         </div>
 
-        {{-- Clear Cart --}}
         <a href="{{ route('action.clearCart') }}" class="clear-btn">
             Clear
         </a>
@@ -39,7 +51,7 @@ CHECKOUT / CART
 
                 <div class="cart-product" data-product-id="{{ $item['id'] }}" data-price="{{ $item['price'] }}">
 
-                    {{-- Product Image --}}
+                    {{-- Image --}}
                     @if (!empty($item['avatar']))
 
                         <img src="{{ asset('storage/img/' . $item['avatar']) }}" alt="{{ $item['name'] }}">
@@ -51,10 +63,7 @@ CHECKOUT / CART
                     @endif
 
 
-                    {{-- =====================================
-                    PRODUCT INFORMATION
-                    ====================================== --}}
-
+                    {{-- Product Info --}}
                     <div class="cart-product-info">
 
                         <strong>
@@ -67,22 +76,23 @@ CHECKOUT / CART
 
 
                         {{-- Quantity --}}
-                        <div class="quantity d-flex justify-content-between align-items-center" style="max-width: 110px;">
+                        <div class="quantity d-flex justify-content-between align-items-center" style="max-width:110px;">
 
-                            {{-- Minus --}}
                             <button type="button" class="quantity-minus">
+
                                 <i class="fas fa-minus"></i>
+
                             </button>
 
 
-                            {{-- Quantity Input --}}
                             <input type="number" class="quantity-input text-center" value="{{ $item['quantity'] }}" min="1"
-                                style="max-width: 45px;">
+                                style="max-width:45px;">
 
 
-                            {{-- Plus --}}
                             <button type="button" class="quantity-plus">
+
                                 <i class="fas fa-plus"></i>
+
                             </button>
 
                         </div>
@@ -90,26 +100,21 @@ CHECKOUT / CART
                     </div>
 
 
-                    {{-- =====================================
-                    ITEM PRICE
-                    ====================================== --}}
-
+                    {{-- Price --}}
                     <div class="cart-price">
 
                         <strong class="item-total">
                             ${{ number_format(
-                $item['price'] * $item['quantity'],
-                2
-            ) }}
+        $item['price'] * $item['quantity'],
+        2
+    ) }}
                         </strong>
 
 
-                        {{-- Remove Product --}}
-                        <a href="{{ route(
-                'action.cart.remove',
-                $item['id']
-            ) }}" class="remove-btn" title="Remove product">
+                        <a href="{{ route('action.cart.remove', $item['id']) }}" class="remove-btn" title="Remove product">
+
                             <i class="fas fa-trash-alt text-danger"></i>
+
                         </a>
 
                     </div>
@@ -118,7 +123,6 @@ CHECKOUT / CART
 
         @empty
 
-            {{-- Empty Cart --}}
             <div class="text-center py-4 text-muted">
 
                 <i class="fas fa-shopping-cart fa-2x mb-2"></i>
@@ -133,168 +137,145 @@ CHECKOUT / CART
 
     </div>
 
-</div>
+
+    {{-- =========================================
+    DIVIDER
+    ========================================== --}}
+
+    <div class="checkout-divider"></div>
 
 
+    {{-- =========================================
+    SUMMARY
+    ========================================== --}}
 
-{{-- =========================================
-SUMMARY
-========================================= --}}
+    <div class="summary">
 
-@php
-
-    $subtotal = collect($cart)->sum(function ($item) {
-
-        return $item['price'] * $item['quantity'];
-
-    });
-
-    $discount = 0;
-
-    $taxRate = 0.10;
-
-    $tax = $subtotal * $taxRate;
-
-    $total = $subtotal - $discount + $tax;
-
-@endphp
-
-
-<div class="summary">
-
-    {{-- Subtotal --}}
-    <div>
-
-        <span>
-            Subtotal
-        </span>
-
-        <strong id="subtotal">
-            ${{ number_format($subtotal, 2) }}
-        </strong>
-
-    </div>
-
-
-    {{-- Discount --}}
-    <div>
-
-        <span>
-            Discount
-        </span>
-
-        <div class="discount">
-
-            <input type="number" id="discount" value="0" min="0" step="0.01">
+        {{-- Subtotal --}}
+        <div>
 
             <span>
-                $
+                Subtotal
             </span>
+
+            <strong id="subtotal">
+                ${{ number_format($subtotal, 2) }}
+            </strong>
+
+        </div>
+
+
+        {{-- Discount --}}
+        <div>
+
+            <span>
+                Discount
+            </span>
+
+            <div class="discount">
+
+                <input type="number" id="discount" value="0" min="0" step="0.01">
+
+                <span>
+                    $
+                </span>
+
+            </div>
 
         </div>
 
     </div>
 
-</div>
 
+    {{-- =========================================
+    GRAND TOTAL
+    ========================================== --}}
 
+    <div class="grand-total">
 
-{{-- =========================================
-GRAND TOTAL
-========================================= --}}
+        <span>
+            Total
+        </span>
 
-<div class="grand-total">
-
-    <span>
-        Total
-    </span>
-
-    <strong id="grand-total">
-        ${{ number_format($total, 2) }}
-    </strong>
-
-</div>
-
-
-
-{{-- =========================================
-PAYMENT METHOD
-========================================= --}}
-
-<div class="payment-section">
-
-    <label>
-        Payment Method
-    </label>
-
-
-    <div class="payment-buttons">
-
-        {{-- Cash --}}
-        <button type="button" class="payment active" data-payment="cash">
-
-            <i class="fas fa-money-bill-wave"></i>
-
-            <span>
-                Cash
-            </span>
-
-        </button>
-
-
-        {{-- Card --}}
-        <button type="button" class="payment" data-payment="card">
-
-            <i class="fas fa-credit-card"></i>
-
-            <span>
-                Card
-            </span>
-
-        </button>
-
-
-        {{-- QR --}}
-        <button type="button" class="payment" data-payment="qr">
-
-            <i class="fas fa-qrcode"></i>
-
-            <span>
-                QR Pay
-            </span>
-
-        </button>
+        <strong id="grand-total">
+            ${{ number_format($total, 2) }}
+        </strong>
 
     </div>
 
+
+    {{-- =========================================
+    PAYMENT
+    ========================================== --}}
+
+    <div class="payment-section">
+
+        <label>
+            Payment Method
+        </label>
+
+
+        <div class="payment-buttons">
+
+            {{-- Cash --}}
+            <button type="button" class="payment active" data-payment="cash">
+
+                <i class="fas fa-money-bill-wave"></i>
+
+                <span>
+                    Cash
+                </span>
+
+            </button>
+
+
+            {{-- Card --}}
+            <button type="button" class="payment" data-payment="card">
+
+                <i class="fas fa-credit-card"></i>
+
+                <span>
+                    Card
+                </span>
+
+            </button>
+
+
+            {{-- QR --}}
+            <button type="button" class="payment" data-payment="qr">
+
+                <i class="fas fa-qrcode"></i>
+
+                <span>
+                    QR Pay
+                </span>
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    {{-- =========================================
+    COMPLETE SALE
+    ========================================== --}}
+
+    <button type="button" class="checkout-btn" id="complete-sale">
+
+        <span>
+            Complete Sale
+        </span>
+
+        <strong id="checkout-total">
+            ${{ number_format($total, 2) }}
+        </strong>
+
+        <i class="fas fa-arrow-right"></i>
+
+    </button>
+
 </div>
-
-
-
-{{-- =========================================
-COMPLETE SALE
-========================================= --}}
-
-<button type="button" class="checkout-btn" id="complete-sale">
-
-    <span>
-        Complete Sale
-    </span>
-
-    <strong id="checkout-total">
-        ${{ number_format($total, 2) }}
-    </strong>
-
-    <i class="fas fa-arrow-right"></i>
-
-</button>
-
-
-
-{{-- =========================================
-JAVASCRIPT
-========================================= --}}
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
 
