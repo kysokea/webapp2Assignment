@@ -42,5 +42,4 @@ WORKDIR /var/www/html
 
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-RUN composer install & \
-    npm install
+RUN composer install && npm install
