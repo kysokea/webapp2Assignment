@@ -3,12 +3,12 @@ CHECKOUT / CART
 ========================================= --}}
 
 @php
-$subtotal = collect($cart)->sum(function ($item) {
-    return $item['price'] * $item['quantity'];
-});
+    $subtotal = collect($cart)->sum(function ($item) {
+        return $item['price'] * $item['quantity'];
+    });
 
-$discount = 0;
-$total = $subtotal - $discount;
+    $discount = 0;
+    $total = $subtotal - $discount;
 @endphp
 
 
@@ -105,9 +105,9 @@ $total = $subtotal - $discount;
 
                         <strong class="item-total">
                             ${{ number_format(
-        $item['price'] * $item['quantity'],
-        2
-    ) }}
+                $item['price'] * $item['quantity'],
+                2
+            ) }}
                         </strong>
 
 
@@ -261,18 +261,8 @@ $total = $subtotal - $discount;
     COMPLETE SALE
     ========================================== --}}
 
-    <button type="button" class="checkout-btn" id="complete-sale">
-
-        <span>
-            Complete Sale
-        </span>
-
-        <strong id="checkout-total">
-            ${{ number_format($total, 2) }}
-        </strong>
-
-        <i class="fas fa-arrow-right"></i>
-
+    <button type="submit" class="checkout-btn text-center" id="complete-sale">
+        Sale
     </button>
 
 </div>
