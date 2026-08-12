@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email','phone', 'password', 'gender_id', 'role', 'avatar', 'disable'])]
+#[Fillable(['name', 'email', 'phone', 'password', 'gender_id', 'role', 'avatar', 'disable'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -33,5 +33,9 @@ class User extends Authenticatable
     public function gender()
     {
         return $this->belongsTo(Gender::class, 'gender_id');
+    }
+    public function sales()
+    {
+        return $this->hasMany(Sale::class, 'user_id', 'user_id');
     }
 }

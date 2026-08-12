@@ -15,4 +15,8 @@ class Customer extends Model
         'customer_type_kh',
         'customer_type_en',
     ];
+    public function sales()
+    {
+        return $this->hasMany(Sale::class, 'customer_id', 'customer_id');
+    }
 }
