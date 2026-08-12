@@ -22,8 +22,7 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
             $table->integer('qty')->default(0);
-            $table->decimal('unit_price', 10, 2);
-            $table->decimal('total_price', 10, 2);
+            $table->decimal('price', 10, 2);
             $table->timestamps();
         });
     }

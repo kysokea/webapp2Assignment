@@ -18,9 +18,6 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
             $table->string('payment_method');
-            $table->decimal('cash_receive', 10, 2);
-            $table->decimal('cash_return', 10, 2);
-            $table->decimal('exchange_rate', 10, 2);
             $table->timestamps();
         });
     }

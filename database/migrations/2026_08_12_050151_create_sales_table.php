@@ -23,8 +23,13 @@ return new class extends Migration
                 ->restrictOnDelete();
             $table->date('sale_date');
             $table->decimal('discount', 10, 2);
-            $table->decimal('sub_total', 10, 2);
-            $table->decimal('grand_total', 10, 2);
+            $table->decimal('sub_total_dollar', 10, 2);
+            $table->decimal('grand_total_dollar', 10, 2);
+            $table->decimal('sub_total_riel', 10, 2);
+            $table->decimal('grand_total_riel', 10, 2);
+            $table->decimal('cash_receive', 10, 2);
+            $table->decimal('cash_return', 10, 2);
+            $table->decimal('exchange_rate', 10, 2);
             $table->timestamps();
         });
     }
