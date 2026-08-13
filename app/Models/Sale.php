@@ -10,6 +10,7 @@ class Sale extends Model
     protected $fillable = [
         'customer_id',
         'user_id',
+        'payment_id',
         'sale_date',
         'discount',
         'sub_total_dollar',
@@ -36,8 +37,5 @@ class Sale extends Model
     {
         return $this->belongsTo(Payment::class, 'payment_id', 'payment_id');
     }
-    public function product()
-    {
-        return $this->belongsTo(Product::class, 'product_id', 'product_id');
-    }
+
 }

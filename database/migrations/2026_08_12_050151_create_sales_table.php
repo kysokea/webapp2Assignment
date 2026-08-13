@@ -22,10 +22,6 @@ return new class extends Migration
                 ->constrained('users', 'user_id')
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
-            $table->foreignId('product_id')
-                ->constrained('products', 'product_id')
-                ->cascadeOnUpdate()
-                ->restrictOnDelete();
             $table->foreignId('payment_id')
                 ->constrained('payments', 'payment_id')
                 ->cascadeOnUpdate()
