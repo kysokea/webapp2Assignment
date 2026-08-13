@@ -12,21 +12,24 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&family=Lexend:wght@300;400;500;600;700&display=swap');
+
         /* ==============================
    Sidebar Menu Transition
 ================================ */
-.khmer-text {
-    font-family: 'Kantumruy Pro', sans-serif;
-    color: gray;
-}
-.english-text {
-    font-family: 'Lexend', sans-serif;
-    color: gray;
-}
-.english-text2 {
-    font-family: 'san', sans-serif;
-    color: gray;
-}
+        .khmer-text {
+            font-family: 'Kantumruy Pro', sans-serif;
+            color: gray;
+        }
+
+        .english-text {
+            font-family: 'Lexend', sans-serif;
+            color: gray;
+        }
+
+        .english-text2 {
+            font-family: 'san', sans-serif;
+            color: gray;
+        }
 
         .main-sidebar .nav-link {
             transition:
@@ -92,6 +95,36 @@
         .nav-item.menu-open>.nav-link .right {
             transform: rotate(-90deg);
         }
+
+        .checkout-btn {
+            position: relative !important;
+            width: 100% !important;
+            min-height: 45px !important;
+
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+
+            text-align: center !important;
+        }
+
+        .sale-button-content {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        #sale-button-text {
+            display: block;
+            width: auto;
+            text-align: center;
+        }
+
+        #sale-button-spinner {
+            margin-left: 1px;
+        }
     </style>
 </head>
 
@@ -115,6 +148,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         function confirmLogout() {

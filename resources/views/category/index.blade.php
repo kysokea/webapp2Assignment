@@ -116,7 +116,7 @@
                                             </div>
 
                                             <div>
-                                                <div class="font-weight-bold text-dark">
+                                                <div class="text-secondary font-weight-normal">
                                                     {{ $category->category_title_kh }}
                                                 </div>
 
@@ -133,7 +133,7 @@
                                     {{-- English --}}
                                     <td>
 
-                                        <div class="font-weight-bold text-dark">
+                                        <div class="text-secondary font-weight-normal">
                                             {{ $category->category_title_en }}
                                         </div>
 

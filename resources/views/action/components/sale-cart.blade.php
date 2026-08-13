@@ -2,12 +2,12 @@
 CHECKOUT / CART
 ========================================= --}}
 @php
-    $subtotal = collect($cart)->sum(function ($item) {
-        return $item['price'] * $item['quantity'];
-    });
+$subtotal = collect($cart)->sum(function ($item) {
+    return $item['price'] * $item['quantity'];
+});
 
-    $total = $subtotal;
-    $exchangeRate = $exchangeRate ?? 4100;
+$total = $subtotal;
+$exchangeRate = $exchangeRate ?? 4100;
 @endphp
 
 
@@ -211,18 +211,120 @@ CHECKOUT / CART
                 </strong>
             </div>
 
-            <button type="submit" class="checkout-btn text-center m-0 w-100" id="complete-sale" disabled>
-                Sale
+            <button type="submit" class="checkout-btn" id="complete-sale" disabled style="margin: 0">
+
+                <span class="sale-button-content">
+                    <span id="sale-button-text">Sale</span>
+
+                    <span id="sale-button-spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true">
+                    </span>
+                </span>
+
             </button>
 
         </form>
 
     </div>
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 99999;">
 
+        <div id="checkoutToast" class="toast align-items-center border-0" role="alert" aria-live="assertive"
+            aria-atomic="true">
+
+            <div class="d-flex">
+
+                <div id="checkoutToastBody" class="toast-body">
+                    Sale completed successfully!
+                </div>
+
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close">
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
 </div>
 
 <script>
+
+    /* =========================================================
+       BOOTSTRAP TOAST
+    ========================================================= */
+
+
+
+
+
     document.addEventListener('DOMContentLoaded', function () {
+        const checkoutToastElement =
+            document.getElementById('checkoutToast');
+
+        const checkoutToastBody =
+            document.getElementById('checkoutToastBody');
+        function showToast(message, type = 'success') {
+
+            if (!checkoutToastElement) {
+                return;
+            }
+
+            /* Remove previous colors */
+            checkoutToastElement.classList.remove(
+                'text-bg-success',
+                'text-bg-danger',
+                'text-bg-warning',
+                'text-bg-info'
+            );
+
+            /* Set toast color */
+            switch (type) {
+
+                case 'success':
+                    checkoutToastElement.classList.add(
+                        'text-bg-success'
+                    );
+                    break;
+
+                case 'error':
+                    checkoutToastElement.classList.add(
+                        'text-bg-danger'
+                    );
+                    break;
+
+                case 'warning':
+                    checkoutToastElement.classList.add(
+                        'text-bg-warning'
+                    );
+                    break;
+
+                case 'info':
+                    checkoutToastElement.classList.add(
+                        'text-bg-info'
+                    );
+                    break;
+
+                default:
+                    checkoutToastElement.classList.add(
+                        'text-bg-success'
+                    );
+            }
+
+            /* Set message */
+            checkoutToastBody.textContent = message;
+
+            /* Create Bootstrap Toast */
+            const toast =
+                bootstrap.Toast.getOrCreateInstance(
+                    checkoutToastElement,
+                    {
+                        delay: 3000
+                    }
+                );
+
+            /* Show */
+            toast.show();
+        }
 
         /* =========================================================
            ELEMENTS
@@ -1008,44 +1110,36 @@ CHECKOUT / CART
 
                         if (data.success) {
 
-                            alert(
-                                'Sale completed successfully!'
+                            showToast(
+                                'Sale completed successfully!',
+                                'success'
                             );
 
-
-                            window.location.href =
-                                data.redirect || '/';
-
-                            // console.log()
+                            setTimeout(() => {
+                                window.location.href =
+                                    data.redirect || '/';
+                            }, 1500);
 
                         } else {
 
-                            alert(
+                            showToast(
                                 data.message ||
-                                'Failed to complete sale.'
+                                'Failed to complete sale.',
+                                'error'
                             );
 
-
-                            completeSaleBtn.disabled =
-                                false;
-
-                            completeSaleBtn.textContent =
-                                'Sale';
+                            completeSaleBtn.disabled = false;
+                            completeSaleBtn.textContent = 'Sale';
                         }
+
                     })
                     .catch(error => {
 
-                        console.error(
-                            'Checkout error:',
-                            error
-                        );
-
+                        console.error('Checkout error:', error);
 
                         const message =
                             error.errors
-                                ? Object.values(
-                                    error.errors
-                                )
+                                ? Object.values(error.errors)
                                     .flat()
                                     .join('\n')
                                 : (
@@ -1053,15 +1147,10 @@ CHECKOUT / CART
                                     'Something went wrong completing the sale.'
                                 );
 
+                        showToast(message, 'error');
 
-                        alert(message);
-
-
-                        completeSaleBtn.disabled =
-                            false;
-
-                        completeSaleBtn.textContent =
-                            'Sale';
+                        completeSaleBtn.disabled = false;
+                        completeSaleBtn.textContent = 'Sale';
                     });
             }
         );

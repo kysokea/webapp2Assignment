@@ -154,7 +154,7 @@
 
 
         {{-- Pagination --}}
-        @if ($productCards->hasPages())
+        {{-- @if ($productCards->hasPages())
 
             <div class="d-flex justify-content-end mr-4">
 
@@ -162,7 +162,10 @@
 
             </div>
 
-        @endif
+        @endif --}}
+        <div class="card-footer">
+            {{ $productCards->links() }}
+        </div>
 
     </div>
 

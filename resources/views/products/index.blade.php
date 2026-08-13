@@ -4,11 +4,13 @@
 
     <div class="container-fluid">
 
-        {{-- Page Header --}}
-        <div class="d-flex justify-content-between align-items-center mb-3">
+        {{-- =====================================================
+        PAGE HEADER
+        ====================================================== --}}
+        <div class="d-flex justify-content-between align-items-center mb-4">
 
             <div>
-                <h4 class="font-weight-bold mb-1">
+                <h4 class="font-weight-bold text-dark mb-1">
                     <i class="fas fa-box-open text-primary mr-2"></i>
                     Products
                 </h4>
@@ -26,16 +28,18 @@
         </div>
 
 
-        {{-- Product Card --}}
-        <div class="card border-0 shadow-sm">
+        {{-- =====================================================
+        PRODUCT CARD
+        ====================================================== --}}
+        <div class="card card-outline card-primary shadow-sm">
 
             {{-- Card Header --}}
-            <div class="card-header bg-white border-bottom">
+            <div class="card-header bg-white">
 
                 <div class="d-flex justify-content-between align-items-center">
 
                     <div>
-                        <h5 class="mb-0 font-weight-bold">
+                        <h5 class="font-weight-bold text-dark mb-1">
                             <i class="fas fa-list text-primary mr-2"></i>
                             Product List
                         </h5>
@@ -46,6 +50,7 @@
                     </div>
 
                     <span class="badge badge-primary px-3 py-2">
+                        <i class="fas fa-box mr-1"></i>
                         {{ $products->total() }} Products
                     </span>
 
@@ -54,42 +59,44 @@
             </div>
 
 
-            {{-- Table --}}
+            {{-- =================================================
+            TABLE
+            ================================================== --}}
             <div class="card-body p-0">
 
                 <div class="table-responsive">
 
-                    <table class="table table-hover align-middle mb-0">
+                    <table class="table table-hover table-striped mb-0">
 
-                        <thead class="bg-light">
+                        <thead class="thead-light">
 
-                            <tr class="text-muted">
+                            <tr>
 
-                                <th class="text-center" width="80">
+                                <th class="text-center align-middle" width="70">
                                     #
                                 </th>
 
-                                <th class="text-center" width="100">
+                                <th class="text-center align-middle" width="100">
                                     Image
                                 </th>
 
-                                <th>
+                                <th class="align-middle">
                                     Name Khmer
                                 </th>
 
-                                <th>
+                                <th class="align-middle">
                                     Name English
                                 </th>
 
-                                <th class="text-center" width="150">
+                                <th class="text-center align-middle" width="150">
                                     Price
                                 </th>
 
-                                <th class="text-center" width="120">
+                                <th class="text-center align-middle" width="130">
                                     Status
                                 </th>
 
-                                <th class="text-center" width="130">
+                                <th class="text-center align-middle" width="120">
                                     Action
                                 </th>
 
@@ -115,41 +122,45 @@
 
                                         @if ($product->avatar)
 
-                                            <img src="{{ asset('/storage/img/' . $product->avatar) }}" width="52" height="52"
-                                                class="rounded-circle border shadow-sm" style="object-fit: cover;"
+                                            <img src="{{ asset('/storage/img/' . $product->avatar) }}" width="55" height="55"
+                                                class="rounded-circle img-thumbnail" style="object-fit: cover;"
                                                 alt="{{ $product->product_name_en }}">
 
                                         @else
 
-                                            <div class="d-inline-flex align-items-center justify-content-center
-                                                                            bg-light border rounded-circle text-muted"
-                                                style="width:52px;height:52px;">
+                                            <span class="d-inline-flex
+                                                                 align-items-center
+                                                                 justify-content-center
+                                                                 bg-light
+                                                                 border
+                                                                 rounded-circle
+                                                                 text-muted" style="width:55px;height:55px;">
 
                                                 <i class="fas fa-image"></i>
 
-                                            </div>
+                                            </span>
 
                                         @endif
 
                                     </td>
 
 
-                                    {{-- Khmer Name --}}
+                                    {{-- Khmer --}}
                                     <td class="align-middle">
 
-                                        <div class="font-weight-bold text-dark">
+                                        <span class="text-secondary font-weight-normal">
                                             {{ $product->product_name_kh }}
-                                        </div>
+                                        </span>
 
                                     </td>
 
 
-                                    {{-- English Name --}}
+                                    {{-- English --}}
                                     <td class="align-middle">
 
-                                        <div class="font-weight-bold text-dark">
+                                        <span class="text-secondary font-weight-normal">
                                             {{ $product->product_name_en }}
-                                        </div>
+                                        </span>
 
                                     </td>
 
@@ -158,10 +169,14 @@
                                     <td class="text-center align-middle">
 
                                         <span class="badge badge-light border px-3 py-2">
-                                            <i class="fas fa-dollar-sign text-success mr-1"></i>
+
+                                            <i class="fas fa-dollar-sign
+                                                          text-success mr-1"></i>
+
                                             <span class="text-success font-weight-bold">
                                                 {{ number_format($product->price, 2) }}
                                             </span>
+
                                         </span>
 
                                     </td>
@@ -173,15 +188,21 @@
                                         @if ($product->disable)
 
                                             <span class="badge badge-danger px-3 py-2">
+
                                                 <i class="fas fa-times-circle mr-1"></i>
+
                                                 Disabled
+
                                             </span>
 
                                         @else
 
                                             <span class="badge badge-success px-3 py-2">
+
                                                 <i class="fas fa-check-circle mr-1"></i>
+
                                                 Active
+
                                             </span>
 
                                         @endif
@@ -194,7 +215,9 @@
 
                                         <a href="{{ route('product.edit', $product->product_id) }}"
                                             class="btn btn-outline-warning btn-sm" title="Edit Product">
+
                                             <i class="fas fa-edit"></i>
+
                                         </a>
 
                                     </td>
@@ -207,15 +230,27 @@
 
                                     <td colspan="7" class="text-center py-5">
 
-                                        <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
+                                        <div class="text-muted">
 
-                                        <h6 class="font-weight-bold text-muted">
-                                            No Products Found
-                                        </h6>
+                                            <i class="fas fa-box-open fa-3x mb-3"></i>
 
-                                        <small class="text-muted">
-                                            Start by adding your first product.
-                                        </small>
+                                            <h6 class="font-weight-bold">
+                                                No Products Found
+                                            </h6>
+
+                                            <p class="mb-3">
+                                                Start by adding your first product.
+                                            </p>
+
+                                            <a href="{{ route('product.create') }}" class="btn btn-primary btn-sm">
+
+                                                <i class="fas fa-plus mr-1"></i>
+
+                                                Add Product
+
+                                            </a>
+
+                                        </div>
 
                                     </td>
 
@@ -232,28 +267,11 @@
             </div>
 
 
-            {{-- Pagination --}}
-            <div class="card-footer bg-white">
-
-                <div class="d-flex justify-content-between align-items-center flex-wrap">
-
-                    <small class="text-muted mb-2 mb-md-0">
-                        Showing
-                        <strong>{{ $products->firstItem() ?? 0 }}</strong>
-                        to
-                        <strong>{{ $products->lastItem() ?? 0 }}</strong>
-                        of
-                        <strong>{{ $products->total() }}</strong>
-                        products
-                    </small>
-
-                    {{-- YOUR PAGINATION --}}
-                    <div>
-                        {{ $products->links('pagination::bootstrap-5') }}
-                    </div>
-
-                </div>
-
+            {{-- =================================================
+            PAGINATION
+            ================================================== --}}
+            <div class="card-footer">
+                {{ $products->links() }}
             </div>
 
         </div>

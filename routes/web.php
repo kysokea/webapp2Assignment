@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CardProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ListSaleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -50,10 +51,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/edit/{id}', 'updateProduct')->name('product.update');
     });
 
-    Route::prefix('/sale')->group(function () {
-        Route::get('/', function () {
-            return view('sales.index');
-        })->name('sales.index');
+    Route::prefix('/sale')->controller(ListSaleController::class)->group(function () {
+        Route::get('/sale','saleList')->name('sales.saleList');
+        Route::get('/detail', 'saleDetailList')->name('sale1.saleDetailList');
     });
 
     Route::prefix('/action')->controller(CardProductController::class)->group(function () {

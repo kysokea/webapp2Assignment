@@ -88,8 +88,8 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('sales.index') }}"
-                                class="nav-link {{ request()->routeIs('sales.*') ? 'active' : '' }}">
+                            <a href="{{ route('sale1.saleDetailList') }}"
+                                class="nav-link {{ request()->routeIs('sale1.*') ? 'active' : '' }}">
 
                                 <i class="fa-solid fa-cart-shopping" style="color: rgb(116, 192, 252);"></i>
 
@@ -99,7 +99,7 @@
 
                         {{-- Sale --}}
                         <li class="nav-item">
-                            <a href="{{ route('sales.index') }}"
+                            <a href="{{ route('sales.saleList') }}"
                                 class="nav-link {{ request()->routeIs('sales.*') ? 'active' : '' }}">
 
                                 <i class="fa-brands fa-shopify" style="color: rgb(116, 192, 252);"></i>
@@ -127,7 +127,7 @@
                                 <p>Product List</p>
                             </a>
                         </li>
-                        
+
 
                     </ul>
                 </li>
