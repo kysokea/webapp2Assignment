@@ -17,8 +17,11 @@ return new class extends Migration
                 ->constrained('sales', 'sale_id')
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
+            $table->string('product_name_kh');
+            $table->string('product_name_en');
             $table->integer('qty')->default(0);
             $table->decimal('price', 10, 2);
+            $table->string('avatar')->nullable();
             $table->timestamps();
         });
     }

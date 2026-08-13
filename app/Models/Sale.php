@@ -34,7 +34,7 @@ class Sale extends Model
     }
     public function payment()
     {
-        return $this->hasOne(Payment::class, 'sale_id', 'sale_id');
+        return $this->belongsTo(Payment::class, 'payment_id', 'payment_id');
     }
     public function product()
     {

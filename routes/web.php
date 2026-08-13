@@ -63,7 +63,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/cart/clear', 'clearCart')->name('action.clearCart');
         Route::get('/cart/remove/{id}', 'removeFromCart')->name('action.cart.remove');
         Route::post('/cart/update/{productId}', 'update')->name('action.cart.update');
-        Route::post('/checkout', 'store')->name('action.checkout.store');
+        Route::post('/checkout', 'sale')->name('action.checkout');
     });
 });
 
