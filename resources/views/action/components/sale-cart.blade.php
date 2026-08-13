@@ -3,16 +3,16 @@ CHECKOUT / CART
 ========================================= --}}
 
 @php
-    $subtotal = collect($cart)->sum(function ($item) {
-        return $item['price'] * $item['quantity'];
-    });
+$subtotal = collect($cart)->sum(function ($item) {
+    return $item['price'] * $item['quantity'];
+});
 
-    $discount = 0;
-    $total = $subtotal - $discount;
+$discount = 0;
+$total = $subtotal - $discount;
 
-    // Set this from your settings/config table if you have one,
-    // or pass it in from the controller. Hardcoded here as a fallback.
-    $exchangeRate = $exchangeRate ?? 4100;
+// Set this from your settings/config table if you have one,
+// or pass it in from the controller. Hardcoded here as a fallback.
+$exchangeRate = $exchangeRate ?? 4100;
 @endphp
 
 
@@ -210,7 +210,8 @@ CHECKOUT / CART
 
         </div>
 
-        <form id="checkout-form" class="w-100 py-4">
+        <form id="checkout-form" class="w-100 py-4" method="POST" action="{{ route('action.checkout.store') }}"
+            data-checkout-url="{{ route('action.checkout.store') }}">
             @csrf
 
             <input type="hidden" id="payment_method" name="payment_method" value="cash">
@@ -252,6 +253,7 @@ CHECKOUT / CART
         const cashInInput = document.getElementById('cash-in');
         const completeSaleBtn = document.getElementById('complete-sale');
         const checkoutForm = document.getElementById('checkout-form');
+        console.log('checkoutForm found:', checkoutForm);
         const exchangeRate = parseFloat(document.getElementById('exchange_rate_hidden').value) || 4100;
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -454,8 +456,25 @@ CHECKOUT / CART
         | SUBMIT SALE -> creates sales, sale_details, payments rows
         |--------------------------------------------------------------------------
         */
+        const checkoutUrl = checkoutForm.dataset.checkoutUrl;
+
         checkoutForm.addEventListener('submit', function (e) {
+            console.log('Submit event fired, preventing default...');
             e.preventDefault();
+
+            const paymentMethod = document.getElementById('payment_method').value;
+            const cashIn = parseFloat(cashInInput.value) || 0;
+
+            if (products.length === 0) {
+                alert('Cart is empty.');
+                return;
+            }
+
+            // Guard: cash must cover the total
+            if (paymentMethod === 'cash' && cashIn < currentTotal) {
+                alert('Cash received is not enough to cover the total.');
+                return;
+            }
 
             const items = Array.from(products).map(function (product) {
                 return {
@@ -467,25 +486,24 @@ CHECKOUT / CART
 
             const payload = {
                 customer_id: document.getElementById('customer_id_hidden').value || null,
-                payment_method: document.getElementById('payment_method').value,
+                payment_method: paymentMethod,
                 discount: parseFloat(document.getElementById('discount_hidden').value) || 0,
                 exchange_rate: exchangeRate,
                 sub_total_dollar: parseFloat(document.getElementById('sub_total_dollar').value),
                 grand_total_dollar: parseFloat(document.getElementById('grand_total_dollar').value),
                 sub_total_riel: parseFloat(document.getElementById('sub_total_riel').value),
                 grand_total_riel: parseFloat(document.getElementById('grand_total_riel').value),
-                cash_receive: parseFloat(cashInInput.value) || 0,
-                cash_return: parseFloat(
-                    document.getElementById('cash-return').textContent.replace('$', '')
-                ) || 0,
+                cash_receive: cashIn,
+                cash_return: parseFloat(document.getElementById('cash-return').textContent.replace('$', '')) || 0,
                 items: items
             };
 
             completeSaleBtn.disabled = true;
             completeSaleBtn.textContent = 'Processing...';
 
-            fetch("", {
+            fetch(checkoutUrl, {
                 method: 'POST',
+                // credentials: 'same-origin',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': csrfToken,
@@ -493,10 +511,16 @@ CHECKOUT / CART
                 },
                 body: JSON.stringify(payload)
             })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(err => { throw err; });
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     if (data.success) {
-                        window.location.href = data.redirect ?? '/pos';
+                        alert('Sale completed successfully!');
+                        window.location.href = data.redirect ?? '/';
                     } else {
                         alert(data.message || 'Failed to complete sale.');
                         completeSaleBtn.disabled = false;
@@ -504,13 +528,16 @@ CHECKOUT / CART
                     }
                 })
                 .catch(error => {
-                    console.error('Error completing sale:', error);
-                    alert('Something went wrong completing the sale.');
+                    console.error('Checkout error:', error);
+                    // Laravel validation errors come back as { message, errors: {...} }
+                    const message = error.errors
+                        ? Object.values(error.errors).flat().join('\n')
+                        : (error.message || 'Something went wrong completing the sale.');
+                    alert(message);
                     completeSaleBtn.disabled = false;
                     completeSaleBtn.textContent = 'Sale';
                 });
         });
-
         /* Initial Calculation */
         calculateCart();
 

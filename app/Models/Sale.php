@@ -11,9 +11,14 @@ class Sale extends Model
         'customer_id',
         'user_id',
         'sale_date',
-        'subtotal',
         'discount',
-        'grand_total',
+        'sub_total_dollar',
+        'grand_total_dollar',
+        'sub_total_riel',
+        'grand_total_riel',
+        'cash_receive',
+        'cash_return',
+        'exchange_rate',
     ];
     public function saleDetails()
     {
@@ -30,5 +35,9 @@ class Sale extends Model
     public function payment()
     {
         return $this->hasOne(Payment::class, 'sale_id', 'sale_id');
+    }
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'product_id');
     }
 }

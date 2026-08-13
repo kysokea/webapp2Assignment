@@ -14,11 +14,16 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id('sale_id');
             $table->foreignId('customer_id')
+                ->nullable()
                 ->constrained('customers', 'customer_id')
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
             $table->foreignId('user_id')
                 ->constrained('users', 'user_id')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+            $table->foreignId('product_id')
+                ->constrained('products', 'product_id')
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
             $table->date('sale_date');

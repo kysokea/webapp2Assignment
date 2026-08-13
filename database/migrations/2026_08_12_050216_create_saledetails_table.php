@@ -17,10 +17,6 @@ return new class extends Migration
                 ->constrained('sales', 'sale_id')
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
-            $table->foreignId('product_id')
-                ->constrained('products', 'product_id')
-                ->cascadeOnUpdate()
-                ->restrictOnDelete();
             $table->integer('qty')->default(0);
             $table->decimal('price', 10, 2);
             $table->timestamps();
